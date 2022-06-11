@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import os
 import re
@@ -36,6 +37,7 @@ def compile_trait_list_regexes(raw_trait_list):
 
 
 def process_pl_or_pkg_filter(raw_pl_or_pkg_filter):
+    raw_pl_or_pkg_filter = copy.deepcopy(raw_pl_or_pkg_filter)
     for white_regs in raw_pl_or_pkg_filter["trait_whitelist"].values():
         if not white_regs:
             white_regs.append(".*")
@@ -63,6 +65,7 @@ def process_dep_filter(raw_dep_filter):
 
 
 def process_file_filter(raw_file_filter):
+    raw_file_filter = copy.deepcopy(raw_file_filter)
     if not raw_file_filter["file_whitelist"]:
         raw_file_filter["file_whitelist"].append(".*")
     file_filter = {
